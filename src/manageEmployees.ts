@@ -215,8 +215,49 @@ function promoteEmployee(tree: TreeNode, employeeName: string): void {
  * @param {string} subordinateName the new boss
  * @returns {void}
  */
-function demoteEmployee() {}
+// Global variable
+var found: boolean = false;
 
+/**
+ * Demotes an employee one level below their current ranking.
+ * Picks a subordinate and swaps places in the hierarchy.
+ *
+ * @param {TreeNode} tree
+ * @param {string} employeeName the employee getting demoted
+ * @param {string} subordinateName the new boss
+ * @returns {void}
+ */
+function demoteEmployee(
+  tree: TreeNode,
+  employeeName: string,
+  subordinateName: string
+): void {
+  // current node: check children
+  // stop searching once node is found. more efficient.
+  if (!found) {
+    for (let i = 0; i < tree.descendants.length; i++) {
+      if (
+        tree.value.name === employeeName &&
+        tree.descendants[i].value.name === subordinateName
+      ) {
+        found = true;
+        // swap nodes
+        let [promotedEmployee, demotedEmployee] = swapEmployeeValue(
+          tree.descendants[i].value,
+          tree.value
+        );
+
+        tree.value = promotedEmployee;
+        tree.descendants[i].value = demotedEmployee;
+
+        console.log(`[demoteEmployee]: Demoted employee (demoted ${employeeName} and replaced with ${subordinateName}) 
+        `);
+      }
+      // recurse if employee not found
+      demoteEmployee(tree.descendants[i], employeeName, subordinateName);
+    }
+  }
+}
 export {
   employee,
   TreeNode,

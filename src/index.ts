@@ -10,6 +10,8 @@ import {
 import { getBoss, getSubordinates, findLowestEmployee } from "./getEmployees";
 import data from "./employees.json";
 
+
+
 // Main code goes here
 function main(data: { employees: Array<employee> }) {
   let tree = generateCompanyStructure(data.employees);
@@ -26,6 +28,9 @@ function main(data: { employees: Array<employee> }) {
   fireEmployee(tree, "Alicia");
 
   promoteEmployee(tree, "Jared");
+
+  demoteEmployee(tree, "Xavier", "Maria");
+
 }
 
 main(data);
