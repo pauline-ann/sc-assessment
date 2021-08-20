@@ -5,6 +5,10 @@ interface employee {
   salary: string;
 }
 
+interface IHash {
+  [name: string]: TreeNode;
+}
+
 class TreeNode {
   value: employee;
   descendants: Array<TreeNode>;
@@ -38,6 +42,25 @@ function normalizeJSON(employees: Array<employee>): void {
  */
  function generateCompanyStructure(employees: Array<employee>): TreeNode {
   normalizeJSON(employees);
+
+  // Generate a tree of employees
+  console.log("Generating employee tree...");
+
+  let tree = ((data: Array<employee>): TreeNode => {
+    var t: IHash = {};
+    var root: string = "";
+    data.forEach((employee: employee) => {
+      t[employee.name] = new TreeNode(employee);
+      if (employee.boss === null) {
+        root = employee.name;
+      } else {
+        t[employee.boss].descendants.push(t[employee.name]);
+      }
+    });
+    return t[root];
+  })(employees);
+  // return generated tree
+  return tree;
 }
 
 /**
