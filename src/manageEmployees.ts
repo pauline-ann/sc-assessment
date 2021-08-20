@@ -181,7 +181,8 @@ function promoteEmployee(tree: TreeNode, employeeName: string): void {
   for (let i = 0; i < tree.descendants.length; i++) {
     // Change value.boss of subordinates to promoted employee's name
     if (tree.descendants[i].value.name === employeeName) {
-      // O(n x m) nested for loop but wouldn't cause a significant effect on efficiency if there aren't many subordinates.
+      // Reassigns boss of promoted employee siblings to employeeName
+      // O(n x m) nested for loop but wouldn't cause a significant effect on efficiency IF there aren't many subordinates.
       for (let i = 0; i < tree.descendants.length; i++) {
         if (tree.descendants[i].value.name != employeeName) {
           tree.descendants[i].value.boss = employeeName;
@@ -233,6 +234,15 @@ function demoteEmployee(
         tree.descendants[i].value.name === subordinateName
       ) {
         found = true;
+
+        // Reassigns boss of promoted employee siblings to subordinateName
+        // O(n x m) nested for loop but wouldn't cause a significant effect on efficiency IF there aren't many subordinates.
+        for (let i = 0; i < tree.descendants.length; i++) {
+          if (tree.descendants[i].value.name != subordinateName) {
+            tree.descendants[i].value.boss = subordinateName;
+          }
+        }
+
         // swap nodes
         let [promotedEmployee, demotedEmployee] = swapEmployeeValue(
           tree.descendants[i].value,

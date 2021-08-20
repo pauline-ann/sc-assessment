@@ -59,6 +59,35 @@ function getSubordinates(tree: TreeNode, employeeName: string): TreeNode[] {
 
   return tree.descendants;
 }
+
+// Helper function for findLowestEmployee function
+function findLowestNode(tree: TreeNode, depth: number): [number, TreeNode] {
+  // base
+  if (tree === null) {
+    return [-1, tree];
+  }
+
+  let largestDepth: number = depth;
+  let lowestNode: TreeNode = tree;
+
+  for (let i = 0; i < tree.descendants.length; i++) {
+    // every time it recurses, add 1 to depth index
+    let nextNode: [number, TreeNode] = findLowestNode(
+      tree.descendants[i],
+      depth + 1
+    );
+
+    // return the largest depth index
+    if (nextNode[0] > largestDepth) {
+      largestDepth = nextNode[0];
+      lowestNode = nextNode[1];
+    }
+  }
+  return [largestDepth, lowestNode];
+}
+
+// Don't need employee name string param to find lowest node
+
 /**
  * EXTRA CREDIT:
  * Finds and returns the lowest-ranking employee and the tree node's depth index.
@@ -67,6 +96,16 @@ function getSubordinates(tree: TreeNode, employeeName: string): TreeNode[] {
  * @param {string} employeeName
  * @returns {TreeNode}
  */
-function findLowestEmployee() {}
+function findLowestEmployee(tree: TreeNode): TreeNode {
+  // call recursive function
+  // 0 is the depth index of the root node
+  let lowestEmployee: [number, TreeNode] = findLowestNode(tree, 0);
+
+  console.log(
+    `[findLowestEmployee]: Lowest Employee is ${lowestEmployee[1].value.name}, with a depth index of ${lowestEmployee[0]}`
+  );
+
+  return lowestEmployee[1];
+}
 
 export { getBoss, getSubordinates, findLowestEmployee };
