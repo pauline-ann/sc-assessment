@@ -10,6 +10,7 @@ import {
 import { getBoss, getSubordinates, findLowestEmployee } from "./getEmployees";
 import data from "./employees.json";
 
+// Used to test the output of the functions
 function printAllNodes(tree: TreeNode, depth: number) {
   if (depth === 0) {
     console.log(`root, with depth index ${depth}`, tree);
