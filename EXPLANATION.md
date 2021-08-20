@@ -18,8 +18,10 @@
 ### If you had more time, what improvements would you implement?
 - Spend more time cleaning up the code to make it more readable and check for cases where code can be reused.
 - Search for where logic could be made more efficient, such as telling each function to stop searching other branches once a node has been found.
-- Account for edge cases such as when a node isn't found, or if a node has no subordinates, if given more time.
+- Account for edge cases such as when a node isn't found, or if a node has no subordinates.
+- Reorganize where code is stored in the file structure so the code can be more modular.
 - Find a solution that avoids using a nested for loop to reassign the `bossName` of child nodes in the `promoteEmployee` and `demoteEmployee` functions. Although this for loop is only called when a specific node is found, typically for loops should be avoided and I wish I had more time to think of a more elegant and efficient solution.
+- Learn TypeScript more in depth so any built in features I might have missed can be taken advantage of.
 
 ### Bonus: There are two functions that have very similar logic and could be merged into one. Which functions do you think can be merged and why?
 
