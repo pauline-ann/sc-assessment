@@ -36,11 +36,11 @@ function normalizeJSON(employees: Array<employee>): void {
 
 /**
  * Normalizes the provided JSON file and generates a tree of employees.
- * 
+ *
  * @param {Object[]} employees array of employees
  * @returns {TreeNode}
  */
- function generateCompanyStructure(employees: Array<employee>): TreeNode {
+function generateCompanyStructure(employees: Array<employee>): TreeNode {
   normalizeJSON(employees);
 
   // Generate a tree of employees
@@ -65,13 +65,13 @@ function normalizeJSON(employees: Array<employee>): void {
 
 /**
  * Adds a new employee to the team and places them under a specified boss.
- * 
+ *
  * @param {TreeNode} tree
  * @param {Object} newEmployee
  * @param {string} bossName
  * @returns {void}
  */
- function hireEmployee(
+function hireEmployee(
   tree: TreeNode,
   newEmployee: employee,
   bossName: string
@@ -95,41 +95,75 @@ function normalizeJSON(employees: Array<employee>): void {
 }
 
 /**
- * Removes an employee from the team by name. 
+ * Removes an employee from the team by name.
  * If the employee has other employees below them, randomly selects one to take their place.
- * 
+ *
  * @param {TreeNode} tree
  * @param {string} name employee's name
  * @returns {void}
  */
-function fireEmployee() {
+function fireEmployee(tree: TreeNode, name: string): TreeNode {
+  // If fired employee is found....
+  if (tree.value.name === name) {
+    // Choose random descendant....
+    let randomDesc: TreeNode =
+      tree.descendants[Math.floor(Math.random() * tree.descendants.length)];
 
+    // Give promoted employee fired employee's salary & position & boss
+    randomDesc.value = {
+      name: randomDesc.value.name,
+      jobTitle: tree.value.jobTitle,
+      boss: tree.value.boss,
+      salary: tree.value.salary,
+    };
+
+    // Loop through
+    for (let i = 0; i < tree.descendants.length; i++) {
+      if (tree.descendants[i] != randomDesc) {
+        // Reassign descendant's boss to promoted employee
+        tree.descendants[i].value.boss = randomDesc.value.name;
+        // Push descendants (that aren't the randomly chosesn employee) to promoted employee's descendants
+        randomDesc.descendants.push(tree.descendants[i]);
+      }
+    }
+
+    console.log(
+      `[fireEmployee]: Fired ${name} and replaced with ${randomDesc.value.name}`
+    );
+    return randomDesc;
+  }
+
+  if (tree.descendants.length > 0) {
+    for (let i = 0; i < tree.descendants.length; i++) {
+      tree.descendants[i] = fireEmployee(tree.descendants[i], name);
+    }
+  } else {
+    return tree;
+  }
+
+  return tree;
 }
 
 /**
- * Promotes an employee one level above their current ranking. 
+ * Promotes an employee one level above their current ranking.
  * The promoted employee and their boss should swap places in the hierarchy.
- * 
+ *
  * @param {TreeNode} tree
  * @param {string} employeeName
  * @returns {void}
  */
-function promoteEmployee() {
-
-}
+function promoteEmployee() {}
 
 /**
  * Demotes an employee one level below their current ranking.
  * Picks a subordinat and swaps places in the hierarchy.
- * 
+ *
  * @param {TreeNode} tree
  * @param {string} employeeName the employee getting demoted
  * @param {string} subordinateName the new boss
  * @returns {void}
  */
-function demoteEmployee() {
-
-}
+function demoteEmployee() {}
 
 export {
   employee,
