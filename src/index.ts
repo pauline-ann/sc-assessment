@@ -32,6 +32,8 @@ function main(data: { employees: Array<employee> }) {
   demoteEmployee(tree, "Xavier", "Maria");
 
   getBoss(tree, "Bill");
+
+  getSubordinates(tree, "Maria");
 }
 
 main(data);
