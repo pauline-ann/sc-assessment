@@ -15,14 +15,29 @@ class TreeNode {
   }
 }
 
+// Normalizes the provided JSON file
+function normalizeJSON(employees: Array<employee>): void {
+  console.log("Normalizing JSON file...");
+
+  // Takes name from email and capitalizes string
+  employees.forEach((employee: { name: string }) => {
+    if (employee.name.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+      let newValue: string =
+        employee.name.charAt(0).toUpperCase() +
+        employee.name.substring(1, employee.name.lastIndexOf("@"));
+      employee.name = newValue;
+    }
+  });
+}
+
 /**
  * Normalizes the provided JSON file and generates a tree of employees.
  * 
  * @param {Object[]} employees array of employees
  * @returns {TreeNode}
  */
-function generateCompanyStructure() {
-
+ function generateCompanyStructure(employees: Array<employee>): TreeNode {
+  normalizeJSON(employees);
 }
 
 /**
