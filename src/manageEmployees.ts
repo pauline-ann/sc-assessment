@@ -144,7 +144,7 @@ function fireEmployee(tree: TreeNode, name: string): TreeNode {
   return tree;
 }
 
-// Helper function for promoteEmployee and demoteEmployee
+// Helper function to swap TreeNode values for promoteEmployee and demoteEmployee
 function swapEmployeeValue(
   promotee: employee,
   demotee: employee
@@ -215,18 +215,10 @@ function promoteEmployee(tree: TreeNode, employeeName: string): void {
  * @param {string} subordinateName the new boss
  * @returns {void}
  */
-// Global variable
+
+// Global variable to tell demoteEmployee if employee has been found or not (if yes, stop searching tree)
 var found: boolean = false;
 
-/**
- * Demotes an employee one level below their current ranking.
- * Picks a subordinate and swaps places in the hierarchy.
- *
- * @param {TreeNode} tree
- * @param {string} employeeName the employee getting demoted
- * @param {string} subordinateName the new boss
- * @returns {void}
- */
 function demoteEmployee(
   tree: TreeNode,
   employeeName: string,
