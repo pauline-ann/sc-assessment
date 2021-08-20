@@ -1,6 +1,16 @@
+interface employee {
+  name: string;
+  jobTitle: string;
+  boss: string | null;
+  salary: string;
+}
+
 class TreeNode {
-  constructor(value = null) {
-    this.value = value
+  value: employee;
+  descendants: Array<TreeNode>;
+
+  constructor(v: employee) {
+    this.value = v;
     this.descendants = [];
   }
 }
