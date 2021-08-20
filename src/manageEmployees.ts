@@ -144,6 +144,29 @@ function fireEmployee(tree: TreeNode, name: string): TreeNode {
   return tree;
 }
 
+// Helper function for promoteEmployee and demoteEmployee
+function swapEmployeeValue(
+  promotee: employee,
+  demotee: employee
+): [employee, employee] {
+  let temp: employee = promotee;
+  promotee = {
+    name: promotee.name,
+    jobTitle: demotee.jobTitle,
+    boss: demotee.boss,
+    salary: demotee.salary,
+  };
+  demotee = {
+    name: demotee.name,
+    jobTitle: temp.jobTitle,
+    boss: temp.name,
+    salary: temp.salary,
+  };
+
+  // return new Boss and new Subordinate with switched values
+  return [promotee, demotee];
+}
+
 /**
  * Promotes an employee one level above their current ranking.
  * The promoted employee and their boss should swap places in the hierarchy.
@@ -152,8 +175,37 @@ function fireEmployee(tree: TreeNode, name: string): TreeNode {
  * @param {string} employeeName
  * @returns {void}
  */
-function promoteEmployee() {}
+function promoteEmployee(tree: TreeNode, employeeName: string): void {
+  // for loop
+  // current node: check children
+  for (let i = 0; i < tree.descendants.length; i++) {
+    // Change value.boss of subordinates to promoted employee's name
+    if (tree.descendants[i].value.name === employeeName) {
+      // O(n x m) nested for loop but wouldn't cause a significant effect on efficiency if there aren't many subordinates.
+      for (let i = 0; i < tree.descendants.length; i++) {
+        if (tree.descendants[i].value.name != employeeName) {
+          tree.descendants[i].value.boss = employeeName;
+        }
+      }
 
+      // Swap nodes, set node equal to promoted employees'
+      let [promotedEmployee, demotedEmployee] = swapEmployeeValue(
+        tree.descendants[i].value,
+        tree.value
+      );
+
+      tree.value = promotedEmployee;
+      tree.descendants[i].value = demotedEmployee;
+
+      console.log(
+        `[promoteEmployee]: Promoted ${employeeName} and made ${demotedEmployee.name} his subordinate`
+      );
+    }
+
+    // recurse if employee not found
+    promoteEmployee(tree.descendants[i], employeeName);
+  }
+}
 /**
  * Demotes an employee one level below their current ranking.
  * Picks a subordinat and swaps places in the hierarchy.

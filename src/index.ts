@@ -25,6 +25,7 @@ function main(data: { employees: Array<employee> }) {
 
   fireEmployee(tree, "Alicia");
 
+  promoteEmployee(tree, "Jared");
 }
 
 main(data);
