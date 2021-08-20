@@ -14,6 +14,14 @@ import {
 function main(data: { employees: Array<employee> }) {
     let tree = generateCompanyStructure(data.employees);
 
+    let newEmployee = {
+        name: "Jeb",
+        jobTitle: "Snack Consumption Expert",
+        boss: "Sarah",
+        salary: "0",
+      };
+    
+      hireEmployee(tree, newEmployee, "Sarah");
 }
 
 main(data)

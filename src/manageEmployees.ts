@@ -71,8 +71,27 @@ function normalizeJSON(employees: Array<employee>): void {
  * @param {string} bossName
  * @returns {void}
  */
-function hireEmployee() {
+ function hireEmployee(
+  tree: TreeNode,
+  newEmployee: employee,
+  bossName: string
+): void {
+  // Boss found in tree
+  if (tree.value.name === bossName) {
+    let newEmployeeNode: TreeNode = new TreeNode(newEmployee);
+    tree.descendants.push(newEmployeeNode);
 
+    console.log(
+      `[hireEmployee]: Added new employee (${newEmployee.name}) with ${bossName} as their boss`
+    );
+  }
+
+  // Recursively call function on descendants
+  if (tree.descendants.length) {
+    for (let descendant of tree.descendants) {
+      hireEmployee(descendant, newEmployee, bossName);
+    }
+  }
 }
 
 /**
