@@ -1,3 +1,5 @@
+import { TreeNode } from "./manageEmployees";
+
 /**
  * Given an employee, will find the node above (if any).
  * 
@@ -32,3 +34,5 @@ function getSubordinates() {
 function findLowestEmployee() {
 
 }
+
+export { getBoss, getSubordinates, findLowestEmployee };

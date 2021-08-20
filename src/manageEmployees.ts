@@ -73,3 +73,13 @@ function promoteEmployee() {
 function demoteEmployee() {
 
 }
+
+export {
+  employee,
+  TreeNode,
+  generateCompanyStructure,
+  hireEmployee,
+  fireEmployee,
+  promoteEmployee,
+  demoteEmployee,
+};
