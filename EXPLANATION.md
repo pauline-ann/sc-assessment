@@ -12,7 +12,7 @@
 
 ### Any noteworthy logic/style decisions you made? If so, what is your reasoning?
 - Throughout each function, I used a recursive approach to find the solution. Since we are using a `TreeNode` class to represent a node and its' descendants, the tree itself is a recursive data structure. This is because the child nodes of a `TreeNode`, are TreeNodes themselves. Therefore, when traversing the tree, the function can call upon itself to traverse the current node's descendants. My code came out cleaner this way as I was able to reuse the same logic as we go through each node.
-- For the `demoteEmployee` function, I used a global variable named `found` to denote whether the employee we are looking for has been found. This avoids traversing the tree's other branches, thus improving efficiency. However, a slight risk made by using global variables is causing possible unexpected side effects. To avoid this, special attention must be made so that the variable isn't used in other functions and `found === true` when `demoteEmployee` is called.
+- For the `demoteEmployee` function, I used a global variable named `found` to denote whether the employee we are looking for has been found. This avoids traversing the tree's other branches, thus improving efficiency. However, a slight risk made by using global variables is causing possible unexpected side effects. To avoid this, special attention must be made so that the variable isn't used in other functions and `found === false` when `demoteEmployee` is called.
 - I created the `swapEmployeeValue` function to swap the TreeNode Value when two nodes at different depth indices are being switched. This way, the `demoteEmployee` and `promoteEmployee` can share the logic within it to swap node values.
 - I also made the assumption that there is only one root node (in this case Sarah), and that each employee's unique identifier would be their name. If not, a unique ID would be generated to account for employees with shared names.
 
@@ -29,4 +29,4 @@
 1) `demoteEmployee`
 2) `promoteEmployee`
 
-These two functions are very similar in logic in that they are switching the positions of a boss and a subordinate in the tree. The main difference is that these functions accept different parameters. The merged function can be redesigned in such a way that it can demote or promote an employee depending on the position that an employee is placed in the parameters of the function.
+These two functions are very similar in logic in that they are switching the positions of a boss and a subordinate in the tree. The main difference is that these functions accept different parameters. The merged function can be redesigned in such a way that it can demote or promote an employee depending on the position the employees are placed in the parameters of the function.
